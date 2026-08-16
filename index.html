@@ -1,11 +1,632 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title></title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>For My Princess 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Quicksand:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Quicksand", sans-serif;
+    color: #633d4d;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.7), transparent 20%),
+        radial-gradient(circle at 85% 75%, rgba(255,255,255,.6), transparent 22%),
+        linear-gradient(135deg, #ffd9e8, #f7a8c5, #ffd5e6);
+    overflow-x: hidden;
+}
+
+/* =========================
+   FLOATING BACKGROUND
+========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart,
+.sparkle,
+.flower {
+    position: absolute;
+    animation: float 7s ease-in-out infinite alternate;
+}
+
+.heart {
+    color: rgba(255,255,255,.8);
+    font-size: 25px;
+}
+
+.sparkle {
+    color: white;
+    font-size: 18px;
+    animation-duration: 3s;
+}
+
+.flower {
+    font-size: 35px;
+    opacity: .45;
+}
+
+@keyframes float {
+    from {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    to {
+        transform: translateY(-25px) rotate(7deg);
+    }
+}
+
+/* =========================
+   LANDING PAGE
+========================= */
+
+.landing {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    transition: 1s ease;
+}
+
+.landing.hide {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 650px;
+}
+
+.small-title {
+    color: #a14d70;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(45px, 10vw, 80px);
+    font-weight: 400;
+    line-height: 1;
+    color: #843557;
+    margin: 0 0 15px;
+}
+
+.subtitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #805267;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+/* =========================
+   ENVELOPE
+========================= */
+
+.envelope-wrapper {
+    display: inline-block;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.envelope-wrapper:hover {
+    transform: translateY(-8px);
+}
+
+.envelope {
+    width: min(340px, 82vw);
+    aspect-ratio: 1.45;
+    background: #fff4f8;
+    border: 2px solid #e7a2bc;
+    border-radius: 18px;
+    position: relative;
+    box-shadow:
+        0 20px 35px rgba(120,40,75,.2);
+    overflow: hidden;
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #f8c2d7;
+    clip-path: polygon(
+        0 0,
+        50% 55%,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+}
+
+.letter-preview {
+    position: absolute;
+    width: 75%;
+    height: 68%;
+    left: 12.5%;
+    top: 18%;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #984368;
+    font-family: "DM Serif Display", serif;
+    font-size: 24px;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(100,30,60,.1);
+}
+
+.flap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60%;
+    background: #ffdce9;
+    clip-path: polygon(0 0, 50% 90%, 100% 0);
+    transform-origin: top;
+    transition: .8s cubic-bezier(.2,.8,.2,1);
+    z-index: 3;
+}
+
+.seal {
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ef98b9;
+    border: 5px solid white;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    box-shadow: 0 5px 15px rgba(120,40,75,.2);
+    transition: .3s ease;
+}
+
+.envelope-wrapper.open .flap {
+    transform: rotateX(165deg);
+}
+
+.envelope-wrapper.open .seal {
+    opacity: 0;
+}
+
+.hint {
+    margin-top: 18px;
+    color: #8c4c66;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    min-height: 100vh;
+    padding: 30px 15px 60px;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(30px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+
+    overflow-y: auto;
+}
+
+.letter-screen.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.letter {
+    width: min(780px, 100%);
+    margin: auto;
+
+    background: rgba(255,250,252,.96);
+
+    border-radius: 28px;
+
+    padding:
+        clamp(25px, 6vw, 60px);
+
+    box-shadow:
+        0 25px 70px rgba(110,40,75,.25);
+
+    position: relative;
+}
+
+.letter-header {
+    text-align: center;
+    padding-bottom: 25px;
+    margin-bottom: 30px;
+    border-bottom: 1px dashed #e4afc3;
+}
+
+.letter-header span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #b25a7b;
+    text-transform: uppercase;
+}
+
+.letter-header h2 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
+    font-size: clamp(36px, 8vw, 58px);
+    color: #843557;
+    margin: 8px 0 0;
+}
+
+.letter-content {
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.letter-content p {
+    margin-bottom: 22px;
+}
+
+.highlight {
+    color: #9a4166;
+    font-weight: 700;
+}
+
+.signature {
+    text-align: right;
+    font-family: "DM Serif Display", serif;
+    color: #873858;
+    font-size: 28px;
+    margin-top: 35px;
+}
+
+.close-button {
+    display: block;
+    margin: 35px auto 0;
+
+    border: none;
+    border-radius: 999px;
+
+    padding: 13px 22px;
+
+    background: #ef9fbd;
+    color: white;
+
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 18px rgba(130,45,80,.18);
+}
+
+.close-button:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+    h1 {
+        font-size: 48px;
+    }
+
+    .letter {
+        border-radius: 22px;
+        padding: 25px 21px;
+    }
+
+    .letter-content {
+        font-size: 15px;
+        line-height: 1.85;
+    }
+
+    .flower {
+        font-size: 27px;
+    }
+}
+</style>
 </head>
+
 <body>
+
+<!-- BACKGROUND DECORATIONS -->
+
+<div class="background">
+
+    <div class="heart" style="left:8%;top:12%;">♡</div>
+    <div class="heart" style="left:87%;top:18%;">♥</div>
+    <div class="heart" style="left:14%;top:75%;">♡</div>
+    <div class="heart" style="left:82%;top:78%;">♥</div>
+
+    <div class="sparkle" style="left:25%;top:20%;">✦</div>
+    <div class="sparkle" style="left:73%;top:25%;">✧</div>
+    <div class="sparkle" style="left:12%;top:55%;">✦</div>
+    <div class="sparkle" style="left:88%;top:58%;">✧</div>
+
+    <div class="flower" style="left:4%;top:40%;">🌷</div>
+    <div class="flower" style="left:91%;top:42%;">🌸</div>
+    <div class="flower" style="left:5%;top:88%;">🌸</div>
+    <div class="flower" style="left:88%;top:88%;">🌷</div>
+
+</div>
+
+
+<!-- =========================
+     OPENING SCREEN
+========================= -->
+
+<section class="landing" id="landing">
+
+    <div class="container">
+
+        <div class="small-title">
+            A little something for you
+        </div>
+
+        <h1>
+            For My Princess 💗
+        </h1>
+
+        <p class="subtitle">
+            I made a little place just for you.<br>
+            There's a letter waiting inside.
+        </p>
+
+
+        <div
+            class="envelope-wrapper"
+            id="envelope"
+            onclick="openLetter()"
+        >
+
+            <div class="envelope">
+
+                <div class="letter-preview">
+                    For Shane ♡
+                </div>
+
+                <div class="flap"></div>
+
+                <div class="seal">
+                    ♥
+                </div>
+
+            </div>
+
+            <div class="hint">
+                tap the letter to open it ♡
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     LETTER
+========================= -->
+
+<section
+    class="letter-screen"
+    id="letterScreen"
+>
+
+<article class="letter">
+
+    <header class="letter-header">
+
+        <span>
+            for the girl who means so much to me
+        </span>
+
+        <h2>
+            My Princess, Shane 🌷
+        </h2>
+
+    </header>
+
+
+    <div class="letter-content">
+
+        <p>
+            If you're reading this, then I guess you finally opened the little letter I made for you. I wanted to make something that you could keep, something you could open whenever you feel like it, especially on the days when you need a little reminder of how someone sees you. I could've just sent you another long message, but I wanted this one to feel a little different because you're someone who means a lot to me. So here I am, trying my best to put into words just how much I appreciate you.
+        </p>
+
+        <p>
+            First of all, you're genuinely so beautiful, Shane. I hope you know that. And I'm not just talking about how you look, because there's so much more about you that I find beautiful. I love your smile, your eyes, your laugh, the way you talk, the way you get excited over things you like, and all those little expressions you make without even realizing it. I love how caring you are, how sweet you can be, and how you have this softness about you that makes you so easy to care for. There are so many little things about you that I could probably spend forever listing them all, and I'd still find more.
+        </p>
+
+        <p>
+            Sometimes I wish you could see yourself the way I see you, even just for a moment. Maybe then you'd understand why I think you're so beautiful. You don't have to look perfect all the time. You don't have to change anything about yourself. You don't have to compare yourself to anyone else. You are already someone incredibly special to me simply because you're you. The things you might overlook about yourself are sometimes the exact things I appreciate the most.
+        </p>
+
+        <p>
+            And even though we're far from each other, I never want the distance to make you think that what I feel for you isn't real. I know we're not officially together, and I know there are still things that need time, but that doesn't change how much I genuinely care about you. I don't need a label to know that you're important to me. I don't need to rush you into anything just because I know what I want. What matters to me is that you're comfortable, that you're happy, and that whatever happens between us happens because you're ready for it too.
+        </p>
+
+        <p>
+            That's why I want you to take your time.
+        </p>
+
+        <p>
+            If your heart needs time, I'll give you time. If you need to figure things out, I'll understand. If you need to move slowly, then we'll move slowly. <span class="highlight">Hindi kita mamadaliin, my princess.</span> I don't want you to ever feel like you owe me an answer just because I've been waiting. I want you to choose when you're ready, because when that moment comes, I want it to be something you genuinely want too.
+        </p>
+
+        <p>
+            And while I'm waiting, I want to keep learning about you. I want to understand you better, even from all the way over here. I want to learn what makes you happy, what makes you feel appreciated, what makes you feel safe, what kind of words mean the most to you, and what little things make your day better. I don't want to just love you in the way that feels natural to me. I want to learn how <span class="highlight">you</span> want to be loved. If there's something I don't understand yet, I'll listen. If there's something I need to learn, I'll learn it. I don't expect to know everything about you right away, but I want to keep discovering you little by little.
+        </p>
+
+        <p>
+            I also want you to know that you never have to be a different person around me. You don't have to pretend that you're always okay. You don't have to hide the parts of yourself that you're still learning to love. You can be silly, quiet, excited, tired, emotional, or just completely random, and I'll still be happy to know that side of you. I want you to feel comfortable being yourself with me because that's the person I want to know—the real you.
+        </p>
+
+        <p>
+            I appreciate every conversation we have, even the random ones that probably don't seem important. I appreciate every time you tell me about your day, every little story you share, every laugh, every late-night conversation, every moment where you let me into your world. We're miles apart, but somehow you've still managed to become someone I look forward to hearing from. Someone whose messages can instantly make my day better. Someone I genuinely want to know more about.
+        </p>
+
+        <p>
+            And if there ever comes a time when you doubt whether you're worth the effort, I hope you remember this letter.
+        </p>
+
+        <p>
+            <span class="highlight">You are.</span>
+        </p>
+
+        <p>
+            You're worth the patience. You're worth the time. You're worth the effort. You're worth being understood. You're worth being cared for. You're worth being chosen. And you never have to become someone else to deserve those things.
+        </p>
+
+        <p>
+            I don't know exactly how everything will turn out, and I'm not going to pretend that I know what the future looks like. But I do know what I want right now. I want to keep being here. I want to keep getting to know you. I want to keep making you smile whenever I can. I want to keep reminding you how beautiful you are when you forget. And if one day you decide that you're ready to take that next step with me, I want to be able to say that I was patient enough to let you get there in your own time.
+        </p>
+
+        <p>
+            Until then, I'll be here.
+        </p>
+
+        <p>
+            No pressure. No rushing. Just me, caring about you, appreciating you, and learning how to love you better every day.
+        </p>
+
+        <p>
+            So whenever you look at yourself and start thinking that maybe you're not pretty enough, special enough, or worthy enough, please come back to this letter. Read it again and remember that somewhere out here, there's someone who sees so many beautiful things in you that he could probably write an entire website about them. And honestly, I might just do that. HAHAHA.
+        </p>
+
+        <p>
+            You're beautiful, Shane. You're precious to me. You're someone I'm incredibly grateful to have met, and I'm genuinely excited to see where life takes us. Until you're ready, I'll keep my place beside you from here, even if there's a screen and so many kilometers between us.
+        </p>
+
+        <p>
+            <span class="highlight">
+                I love you, my princess.
+            </span>
+            And I'll keep choosing to care for you, patiently and genuinely, for as long as you'll let me.
+        </p>
+
+        <div class="signature">
+            — always cheering for you, 💗
+        </div>
+
+    </div>
+
+
+    <button
+        class="close-button"
+        onclick="closeLetter()"
+    >
+        close the letter ♡
+    </button>
+
+</article>
+
+</section>
+
+
+
+<script>
+
+function openLetter() {
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const landing =
+        document.getElementById("landing");
+
+    const letter =
+        document.getElementById("letterScreen");
+
+
+    envelope.classList.add("open");
+
+
+    setTimeout(function() {
+
+        landing.classList.add("hide");
+
+        letter.classList.add("show");
+
+    }, 650);
+
+}
+
+
+function closeLetter() {
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const landing =
+        document.getElementById("landing");
+
+    const letter =
+        document.getElementById("letterScreen");
+
+
+    letter.classList.remove("show");
+
+    landing.classList.remove("hide");
+
+
+    setTimeout(function() {
+
+        envelope.classList.remove("open");
+
+    }, 400);
+
+}
+
+</script>
 
 </body>
 </html>
